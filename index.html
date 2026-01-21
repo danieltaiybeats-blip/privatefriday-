@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRIVATE · Friday Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -24,7 +25,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+            background: linear-gradient(180deg, #000 0%, #000 70%, #0a0a0a 85%, #1a1a1a 100%);
             overflow: hidden;
         }
 
@@ -36,14 +37,14 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
             animation: pulse 8s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         .noise {
@@ -52,7 +53,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.03;
+            opacity: 0.02;
             pointer-events: none;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
@@ -83,7 +84,7 @@
             font-weight: 200;
             letter-spacing: -2px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #999 100%);
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,7 +101,7 @@
         .divider {
             width: 60px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #666, transparent);
+            background: linear-gradient(90deg, transparent, #444, transparent);
             margin: 60px auto;
         }
 
@@ -112,8 +113,8 @@
         }
 
         .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 2px;
             padding: 50px 40px;
             transition: all 0.4s ease;
@@ -128,19 +129,35 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
             opacity: 0;
             transition: opacity 0.4s;
         }
 
+        .info-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
         .info-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(139, 92, 246, 0.3);
             transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
         }
 
         .info-card:hover::before {
             opacity: 1;
+        }
+
+        .info-card:hover::after {
+            left: 100%;
         }
 
         .card-label {
@@ -187,18 +204,30 @@
             width: 60px;
             height: 60px;
             margin: 0 auto 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            transition: all 0.3s;
+            font-size: 22px;
+            transition: all 0.4s;
+            color: #888;
+            position: relative;
+        }
+
+        .feature-icon i {
+            transition: all 0.4s;
         }
 
         .feature:hover .feature-icon {
-            border-color: rgba(168, 85, 247, 0.5);
-            background: rgba(168, 85, 247, 0.05);
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(139, 92, 246, 0.05);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            color: #a78bfa;
+        }
+
+        .feature:hover .feature-icon i {
+            transform: scale(1.1);
         }
 
         .feature-label {
@@ -215,21 +244,45 @@
         .cta-button {
             display: inline-block;
             padding: 20px 60px;
-            background: transparent;
-            border: 1px solid #fff;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.4);
             color: #fff;
             font-size: 14px;
             letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s;
             font-weight: 400;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .cta-button:hover {
-            background: #fff;
-            color: #000;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
+            transform: translateY(-2px);
         }
 
         .footer-note {
@@ -243,8 +296,8 @@
         }
 
         .access-info {
-            background: rgba(168, 85, 247, 0.05);
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(139, 92, 246, 0.03);
+            border: 1px solid rgba(139, 92, 246, 0.15);
             padding: 40px;
             border-radius: 2px;
             margin: 60px 0;
@@ -254,7 +307,7 @@
         .access-title {
             font-size: 16px;
             letter-spacing: 2px;
-            color: #a855f7;
+            color: #8b5cf6;
             margin-bottom: 15px;
             text-transform: uppercase;
             font-weight: 400;
@@ -316,19 +369,27 @@
                 
                 <div class="features-grid">
                     <div class="feature">
-                        <div class="feature-icon">🥂</div>
+                        <div class="feature-icon">
+                            <i class="fas fa-cocktail"></i>
+                        </div>
                         <div class="feature-label">Welcome Bar</div>
                     </div>
                     <div class="feature">
-                        <div class="feature-icon">🎵</div>
+                        <div class="feature-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
                         <div class="feature-label">Live Performance</div>
                     </div>
                     <div class="feature">
-                        <div class="feature-icon">🤝</div>
+                        <div class="feature-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
                         <div class="feature-label">Networking</div>
                     </div>
                     <div class="feature">
-                        <div class="feature-icon">🌃</div>
+                        <div class="feature-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
                         <div class="feature-label">Skyline View</div>
                     </div>
                 </div>
@@ -348,7 +409,7 @@
 
             <div class="footer-note">
                 This is a private event for selected guests and their plus ones. 
-                Attendance is confirmed via personal invitation only. Age 21+.
+                Attendance is confirmed via personal invitation only. Age 18+.
             </div>
         </div>
     </section>
@@ -356,8 +417,7 @@
     <script>
         function handleRSVP() {
             const message = encodeURIComponent('Здравствуйте, хочу получить приглашение на Private Friday');
-            // Замените на ваш Telegram
-            window.open(`https://t.me/YOUR_USERNAME?text=${message}`, '_blank');
+            window.open(`https://t.me/mgmtmmmaria?text=${message}`, '_blank');
         }
     </script>
 </body>
