@@ -1,1 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIVATE · Friday Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #000 0%, #1a1a1a 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: #666;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 200;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #999 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #888;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #666, transparent);
+            margin: 60px auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 80px 0;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            padding: 50px 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .details-section {
+            max-width: 800px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        .details-title {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .feature:hover .feature-icon {
+            border-color: rgba(168, 85, 247, 0.5);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .feature-label {
+            font-size: 14px;
+            color: #999;
+            font-weight: 300;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 100px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .footer-note {
+            max-width: 600px;
+            margin: 80px auto 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .access-info {
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 40px;
+            border-radius: 2px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .access-title {
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: #a855f7;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .access-text {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 48px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-card {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="header">
+                <div class="logo">INVITATION ONLY</div>
+                <h1 class="title">PRIVATE</h1>
+                <div class="subtitle">Friday Edition</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="content-grid">
+                <div class="info-card">
+                    <div class="card-label">Date & Time</div>
+                    <div class="card-value">Friday<br>21:00 — Late</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Location</div>
+                    <div class="card-value">Penthouse<br>Downtown</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Music</div>
+                    <div class="card-value">Resident DJ<br>Deep House / Melodic</div>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <h2 class="details-title">An Evening of Connection</h2>
+                
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🥂</div>
+                        <div class="feature-label">Welcome Bar</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎵</div>
+                        <div class="feature-label">Live Performance</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🤝</div>
+                        <div class="feature-label">Networking</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🌃</div>
+                        <div class="feature-label">Skyline View</div>
+                    </div>
+                </div>
+
+                <div class="access-info">
+                    <div class="access-title">Access Details</div>
+                    <div class="access-text">
+                        Venue address will be shared with confirmed guests 24 hours prior to the event.<br>
+                        Limited capacity · Curated guest list · Smart elegant dress code
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <button class="cta-button" onclick="handleRSVP()">Request Invitation</button>
+            </div>
+
+            <div class="footer-note">
+                This is a private event for selected guests and their plus ones. 
+                Attendance is confirmed via personal invitation only. Age 21+.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function handleRSVP() {
+            const message = encodeURIComponent('Здравствуйте, хочу получить приглашение на Private Friday');
+            // Замените на ваш Telegram
+            window.open(`https://t.me/YOUR_USERNAME?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
